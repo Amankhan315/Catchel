@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .mains {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: wheat;
+
+        }
+
+        .box {
+            height: 98vh;
+            width: 80%;
+            background-color: black;
+            border-radius: 15px;
+            box-shadow: 2px 5px 5px 15px gray;
+            /* border: 1px solid; */
+        }
+
+        .main {
+            width: 400px;
+            height: 400px;
+            border-radius: 8px;
+            background-color: blue;
+            box-shadow: inset 0px 0px 10px 3px gray, 0px 0px 10px 3px gold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.34s;
+        }
+
+        .main:hover {
+            background-color: black;
+        }
+
+        .new {
+            width: 70px;
+            height: 70px;
+            border-radius: 5px;
+            background-color: white;
+            position: absolute;
+            transition: 0.3s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: cursive;
+        }
+
+        .text {
+            width: 700px;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+
+        .x {
+            font-size: 50px;
+            font-family: cursive;
+            color: white;
+        }
+
+        #y {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .score {
+            font-size: 50px;
+            font-family: cursive;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mains">
+        <div class="box">
+            <p class="score" id="score">score:0</p>
+            <div class="text">
+                <p class="x" id="x">X-axis:-</p>
+                <div class="main"></div>
+            </div>
+            <p class="x" id="y">Y-axis:-</p>
+
+        </div>
+    </div>
+    <script>
+        let main = document.querySelector('.main');
+        let axis = document.querySelectorAll('.x');
+        var create = document.createElement('div');
+        create.classList.add('new');
+        create.innerHTML = 'Click Me';
+        main.appendChild(create);
+        let random1;
+        let random2;
+        let colorarr = ['red', 'orange', 'white', 'yellow', 'aqua', 'aquamarine'];
+        let count = 0;
+
+        main.addEventListener('mousemove', function (e) {
+            let positionsX_axis = e.x;
+            let positionsY_axis = e.y;
+            axis[0].innerHTML = `X-axis:- ${positionsX_axis}`;
+            axis[1].innerHTML = `Y-axis:- ${positionsY_axis}`;
+        });
+
+        create.addEventListener('click', function () {
+            count++;
+            score.innerHTML = `score:- ${count}`;
+            random1 = colorarr[Math.floor(Math.random() * colorarr.length)];
+            create.style.backgroundColor = random1;
+        });
+
+        function moving() {
+            let details = main.getBoundingClientRect();
+            let positionsx = details.width;
+            let positionsy = details.height;
+            random1 = Math.floor(Math.random() * positionsx);
+            random2 = Math.floor(Math.random() * positionsy);
+            create.style.bottom = `${random2}px`;
+            create.style.right = `${random1}px`;
+            create.style.top = `${random2}px`;
+            create.style.left = `${random1}px`;
+        }
+
+        setInterval(() => {
+            moving();
+        }, 600);
+
+
+    </script>
+</body>
+
+</html>
